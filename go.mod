@@ -1,3 +1,3 @@
-module golang-fifa-world-cup-web-service
+module github.com/imayavgi/fifa-world-cup-ws
 
-go 1.13
+go 1.14

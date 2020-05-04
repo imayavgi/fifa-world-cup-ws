@@ -1,13 +1,26 @@
 package handlers
 
 import (
-	"golang-fifa-world-cup-web-service/data"
 	"net/http"
+
+	"github.com/imayavgi/fifa-world-cup-ws/internal/pkg/data"
 )
 
 // RootHandler returns an empty body status code
 func RootHandler(res http.ResponseWriter, req *http.Request) {
 	res.WriteHeader(http.StatusNoContent)
+}
+
+// WinnersHandler is the dispatcher for all /winners URL
+func WinnersHandler(res http.ResponseWriter, req *http.Request) {
+	switch req.Method {
+	case http.MethodGet:
+		ListWinners(res, req)
+	case http.MethodPost:
+		AddNewWinner(res, req)
+	default:
+		res.WriteHeader(http.StatusMethodNotAllowed)
+	}
 }
 
 // ListWinners returns winners from the list
@@ -46,17 +59,5 @@ func AddNewWinner(res http.ResponseWriter, req *http.Request) {
 			return
 		}
 		res.WriteHeader(http.StatusCreated)
-	}
-}
-
-// WinnersHandler is the dispatcher for all /winners URL
-func WinnersHandler(res http.ResponseWriter, req *http.Request) {
-	switch req.Method {
-	case http.MethodGet:
-		ListWinners(res, req)
-	case http.MethodPost:
-		AddNewWinner(res, req)
-	default:
-		res.WriteHeader(http.StatusMethodNotAllowed)
 	}
 }
